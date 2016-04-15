@@ -3,5 +3,6 @@
 # Under $GOPATH/bin, there are two config files: core.yaml and config.yaml.
 
 FROM yeasy/hyperledger:latest
+MAINTAINER Baohua Yang
 
 WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
