@@ -12,15 +12,15 @@ For more information about this image and its history, please see the relevant m
 Docker image with hyperledger fabric peer deployed. 
 
 # How to use this image?
-The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger/](https://registry.hub.docker.com/u/yeasy/hyperledger/).
+The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger-peer/](https://registry.hub.docker.com/u/yeasy/hyperledger-peer/).
 
 ## In Dockerfile
 ```sh
-FROM yeasy/hyperledger:latest
+FROM yeasy/hyperledger-peer:latest
 ```
 
 ## Local Run
-The image will automatically run the peer, add your sub command and flags at the end.
+The fabric command is already there, add your sub command and flags at the end.
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
@@ -49,7 +49,7 @@ Use "fabric [command] --help" for more information about a command.
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger fabric help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger-peer fabric help
 ```
 
 The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
@@ -61,7 +61,7 @@ Your can also mapping the port outside using the `-p` options.
 * 30304: CLI process use it for callbacks from chain code
 * 31315: Event service on validating node
 
-## Local Run with testing
+## Local Run with chaincode testing
 
 Start your docker daemon with 
 ```sh
