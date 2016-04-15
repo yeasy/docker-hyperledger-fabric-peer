@@ -61,35 +61,81 @@ Your can also mapping the port outside using the `-p` options.
 * 30304: CLI process use it for callbacks from chain code
 * 31315: Event service on validating node
 
+## Local Run with testing
 
+Start your docker daemon with 
+```sh
+$ sudo docker daemon -D --api-cors-header="*" -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock
+```
 
-A more practical example can be:
-First, start a root validating node:
+Pull necessary images, notice the default config require a local built `openblockchain/baseimage`. We can just use the `yeasy/hyperledger` image instead.
+```sh
+$ docker pull yeasy/hyperledger
+$ docker pull yeasy/hyperledger-peer
+$ docker tag yeasy/hyperledger openblockchain/baseimage
+```
+
+Check the `docker0` bridge ip, normally it should be `172.17.0.1`. This ip will be used as the `CORE_VM_ENDPOINT=http://172.17.0.1:4243`.
+```sh
+$  ip addr show dev docker0
+4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default
+    link/ether 02:42:f2:90:57:cf brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 scope global docker0
+    valid_lft forever preferred_lft forever
+    inet6 fe80::42:f2ff:fe90:57cf/64 scope link
+    valid_lft forever preferred_lft forever
+```
+
+Start a validating node.
+
 ```sh
 $ docker run --name=vp0 \
                     --restart=unless-stopped \
-                    -d \
                     -it \
                     -p 5000:5000 \
                     -p 30303:30303 \
-                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
                     -e CORE_PEER_ID=vp0 \
+                    -e CORE_VM_ENDPOINT=http://172.17.0.1:4243 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    yeasy/hyperledger fabric peer
+                    yeasy/hyperledger-peer fabric peer
 ```
-Then, start another peer validating node with specify the root node's ip (e.g., `172.17.0.2`):
+
+Notice the port mapping is useful when you want to access the validating node api from outside. Here you can also ignore that.
+
+Then, enter into the container
 ```sh
-$ docker run --name=vp1 \
-                    --restart=unless-stopped \
-                    -d \
-                    -it \
-                    -p 5001:5000 \
-                    -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml \
-                    -e CORE_PEER_ID=vp1 \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:30303 \
-                    yeasy/hyperledger fabric peer
+$ docker exec -it vp0 bash
 ```
+    
+Inside the container, deploy a chaincode using
+
+```sh
+$ fabric chaincode deploy -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+13:16:35.643 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5
+```
+
+Query `a`'s current value, which is 100.
+```sh
+$ fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
+13:20:07.952 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+100
+```
+
+Invoke a transaction of 10 from `a` to `b`.
+```sh
+$ fabric chaincode invoke -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
+13:20:31.028 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+ec3c675b-a2fe-4429-ab44-7f389e454657
+```
+Query `a`'s value now.
+```sh
+$ CORE_PEER_ADDRESS=172.17.0.2:30303 fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
+13:20:35.725 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+90
+```
+
+More examples, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/hyperledger).
 
 # Which image is based on?
 The image is built based on [hyperledger](https://hub.docker.com/r/yeasy/hyperledger) base image.
