@@ -8,6 +8,8 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
 
+If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/hyperledger).
+
 # What is docker-hyperledger-peer?
 Docker image with hyperledger fabric peer deployed. 
 
@@ -128,7 +130,7 @@ $ fabric chaincode invoke -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d
 13:20:31.028 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 ec3c675b-a2fe-4429-ab44-7f389e454657
 ```
-Query `a`'s value now.
+Query `a` 's value now.
 ```sh
 $ fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
 13:20:35.725 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
