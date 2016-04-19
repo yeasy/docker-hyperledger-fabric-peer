@@ -137,7 +137,7 @@ $ fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d9
 90
 ```
 
-More examples, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/hyperledger).
+More examples, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
 
 # Which image is based on?
 The image is built based on [hyperledger](https://hub.docker.com/r/yeasy/hyperledger) base image.
