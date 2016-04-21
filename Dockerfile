@@ -1,8 +1,13 @@
-# Dockerfile for Hyperledger peer image, with everything to go!
+# Dockerfile for Hyperledger peer image. This actually follow hyperledger
+# image but to make sure the config is done.
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
-# Under $GOPATH/bin, there are two config files: core.yaml and config.yaml.
 
 FROM yeasy/hyperledger:latest
 MAINTAINER Baohua Yang
 
-WORKDIR "$GOPATH/src/github.com/hyperledger/fabric"
+RUN cd $GOPATH/src/github.com/hyperledger/fabric/peer \
+        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
+        && cp core.yaml $GOPATH/bin \
+        && go clean
+
+WORKDIR $GOPATH/bin
