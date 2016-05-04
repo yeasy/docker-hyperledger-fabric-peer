@@ -22,11 +22,11 @@ FROM yeasy/hyperledger-peer:latest
 ```
 
 ## Local Run
-The fabric command is already there, add your sub command and flags at the end.
+The peer command is already there, add your sub command and flags at the end.
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
-$ docker run --rm -it yeasy/hyperledger-peer fabric help
+$ docker run --rm -it yeasy/hyperledger-peer peer help
 06:08:01.446 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 
 
@@ -46,12 +46,12 @@ Flags:
       --logging-level="": Default logging level and overrides, see core.yaml for full syntax
 
 
-Use "fabric [command] --help" for more information about a command.
+Use "peer [command] --help" for more information about a command.
 ```
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/core.yaml -d yeasy/hyperledger-peer fabric help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer peer help
 ```
 
 The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
@@ -99,7 +99,7 @@ $ docker run --name=vp0 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:4243 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    yeasy/hyperledger-peer fabric peer
+                    yeasy/hyperledger-peer peer peer
 ```
 
 Notice the port mapping is useful when you want to access the validating node api from outside. Here you can also ignore that.
@@ -112,27 +112,27 @@ $ docker exec -it vp0 bash
 Inside the container, deploy a chaincode using
 
 ```sh
-$ fabric chaincode deploy -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+$ peer chaincode deploy -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
 13:16:35.643 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5
 ```
 
 Query `a`'s current value, which is 100.
 ```sh
-$ fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
+$ peer chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
 13:20:07.952 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 100
 ```
 
 Invoke a transaction of 10 from `a` to `b`.
 ```sh
-$ fabric chaincode invoke -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
+$ peer chaincode invoke -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
 13:20:31.028 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 ec3c675b-a2fe-4429-ab44-7f389e454657
 ```
 Query `a` 's value now.
 ```sh
-$ fabric chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
+$ peer chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997dedbc9a042f05d152f6db0fbd7810d95c1b880c210566c9de3093aae0ab76ad2d90e9cfaa5 -c '{"Function": "query", "Args": ["a"]}'
 13:20:35.725 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 90
 ```
@@ -150,7 +150,7 @@ Install required  libsnappy-dev, zlib1g-dev, libbz2-dev.
 Install required  rocksdb 4.1.
 
 ## install hyperledger
-Install hyperledger and build the fabric as peer 
+Install hyperledger and build the peer 
 
 # Supported Docker versions
 
