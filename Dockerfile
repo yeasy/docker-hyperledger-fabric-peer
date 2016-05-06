@@ -5,9 +5,4 @@
 FROM yeasy/hyperledger:latest
 MAINTAINER Baohua Yang
 
-RUN cd $GOPATH/src/github.com/hyperledger/fabric/peer \
-        && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
-        && cp core.yaml $GOPATH/bin \
-        && go clean
-
-WORKDIR $GOPATH/bin
+RUN cp $GOPATH/src/github.com/hyperledger/fabric/consensus/obcpbft/config.yaml $GOPATH/bin
