@@ -4,7 +4,9 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 
 # Supported tags and respective Dockerfile links
 
-* [`0.1, latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/master/Dockerfile)
+* [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/master/Dockerfile): Default to enable pbft as consensus.
+* [`noops` (noops/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/noops/Dockerfile): Use noops as consenus.
+* [`pbft` (pbft/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/pbft/Dockerfile): Use pbft as consensus.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
 
@@ -26,19 +28,15 @@ The peer command is already there, add your sub command and flags at the end.
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
-$ docker run --rm -it yeasy/hyperledger-peer peer help
-06:08:01.446 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
+02:10:10.359 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 
 
 Usage:
   peer [command]
 
 Available Commands:
-  peer        Runs the peer.
-  status      Returns status of the peer.
-  stop        Stops the running peer.
-  login       Logs in a user on CLI.
-  network     Lists all network peers.
+  node        node specific commands.
+  network     network specific commands.
   chaincode   chaincode specific commands.
   help        Help about any command
 
@@ -51,7 +49,7 @@ Use "peer [command] --help" for more information about a command.
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer peer help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer node start help
 ```
 
 The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
@@ -67,7 +65,7 @@ Your can also mapping the port outside using the `-p` options.
 
 Start your docker daemon with 
 ```sh
-$ sudo docker daemon -D --api-cors-header="*" -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock
+$ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
 
 Pull necessary images, notice the default config require a local built `openblockchain/baseimage`. We can just use the `yeasy/hyperledger` image instead.
@@ -75,9 +73,11 @@ Pull necessary images, notice the default config require a local built `openbloc
 $ docker pull yeasy/hyperledger
 $ docker pull yeasy/hyperledger-peer
 $ docker tag yeasy/hyperledger openblockchain/baseimage
+$ docker pull yeasy/hyperledger-peer:noops
+$ docker pull yeasy/hyperledger-peer:pbft
 ```
 
-Check the `docker0` bridge ip, normally it should be `172.17.0.1`. This ip will be used as the `CORE_VM_ENDPOINT=http://172.17.0.1:4243`.
+Check the `docker0` bridge ip, normally it should be `172.17.0.1`. This ip will be used as the `CORE_VM_ENDPOINT=http://172.17.0.1:2375`.
 ```sh
 $  ip addr show dev docker0
 4: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default
@@ -90,6 +90,8 @@ $  ip addr show dev docker0
 
 Start a validating node.
 
+### Noops consensus
+
 ```sh
 $ docker run --name=vp0 \
                     --restart=unless-stopped \
@@ -97,9 +99,27 @@ $ docker run --name=vp0 \
                     -p 5000:5000 \
                     -p 30303:30303 \
                     -e CORE_PEER_ID=vp0 \
-                    -e CORE_VM_ENDPOINT=http://172.17.0.1:4243 \
+                    -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    yeasy/hyperledger-peer peer peer
+                    -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
+                    yeasy/hyperledger-peer:noops peer node start
+```
+
+### PBFT consensus
+```sh
+$ docker run --name=vp0 \
+                    --restart=unless-stopped \
+                    -it \
+                    -p 5000:5000 \
+                    -p 30303:30303 \
+                    -e CORE_PEER_ID=vp0 \
+                    -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_N=1 \
+                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+                    yeasy/hyperledger-peer:pbft peer node start
 ```
 
 Notice the port mapping is useful when you want to access the validating node api from outside. Here you can also ignore that.
