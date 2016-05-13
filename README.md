@@ -70,9 +70,9 @@ $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/
 
 Pull necessary images, notice the default config require a local built `openblockchain/baseimage`. We can just use the `yeasy/hyperledger` image instead.
 ```sh
-$ docker pull yeasy/hyperledger
-$ docker pull yeasy/hyperledger-peer
-$ docker tag yeasy/hyperledger openblockchain/baseimage
+$ docker pull yeasy/hyperledger:latest
+$ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
+$ docker pull yeasy/hyperledger-peer:latest
 $ docker pull yeasy/hyperledger-peer:noops
 $ docker pull yeasy/hyperledger-peer:pbft
 ```
