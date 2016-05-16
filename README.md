@@ -106,25 +106,9 @@ $ docker run --name=vp0 \
 ```
 
 ### PBFT consensus
-```sh
-$ docker run --name=vp0 \
-                    --restart=unless-stopped \
-                    -it \
-                    -p 5000:5000 \
-                    -p 30303:30303 \
-                    -e CORE_PEER_ID=vp0 \
-                    -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
-                    -e CORE_PBFT_GENERAL_MODE=classic \
-                    -e CORE_PBFT_GENERAL_N=1 \
-                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    yeasy/hyperledger-peer:pbft peer node start
-```
+PBFT requires at least 4 nodes, so please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
 
-Notice the port mapping is useful when you want to access the validating node api from outside. Here you can also ignore that.
-
-Then, enter into the container
+After the cluster starts up, enter into the container
 ```sh
 $ docker exec -it vp0 bash
 ```
