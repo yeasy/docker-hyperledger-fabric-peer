@@ -10,7 +10,7 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
 
-If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/hyperledger).
+If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/tree/master/hyperledger).
 
 # What is docker-hyperledger-peer?
 Docker image with hyperledger fabric peer deployed. 
