@@ -98,6 +98,21 @@ $ docker run --name=vp0 \
                     -it \
                     -p 5000:5000 \
                     -p 30303:30303 \
+                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    -e CORE_PEER_ID=vp0 \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
+                    yeasy/hyperledger-peer:noops peer node start
+```
+
+Or use your docker daemon url.
+
+```sh
+$ docker run --name=vp0 \
+                    --restart=unless-stopped \
+                    -it \
+                    -p 5000:5000 \
+                    -p 30303:30303 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
