@@ -63,12 +63,14 @@ Your can also mapping the port outside using the `-p` options.
 
 ## Local Run with chaincode testing
 
-Start your docker daemon with 
+Start your docker daemon with
+
 ```sh
 $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
 
 Pull necessary images, notice the default config require a local built `openblockchain/baseimage`. We can just use the `yeasy/hyperledger` image instead.
+
 ```sh
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
@@ -121,7 +123,15 @@ $ docker run --name=vp0 \
 ```
 
 ### PBFT consensus
-PBFT requires at least 4 nodes, so please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
+PBFT requires at least 4 nodes.
+
+```sh
+$ git clone https://github.com/yeasy/docker-compose-files
+$ cd docker-compose-files/hyperledger
+$ docker-compose up
+```
+
+More details, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
 
 After the cluster starts up, enter into the container
 ```sh
