@@ -10,7 +10,7 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
 
-If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files/hyperledger).
+If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [Start hyperledger clsuter using compose](https://github.com/yeasy/docker-compose-files#hyperledger).
 
 # What is docker-hyperledger-peer?
 Docker image with hyperledger fabric peer deployed. 
@@ -63,12 +63,14 @@ Your can also mapping the port outside using the `-p` options.
 
 ## Local Run with chaincode testing
 
-Start your docker daemon with 
+Start your docker daemon with
+
 ```sh
 $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
 
 Pull necessary images, notice the default config require a local built `openblockchain/baseimage`. We can just use the `yeasy/hyperledger` image instead.
+
 ```sh
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
@@ -98,6 +100,21 @@ $ docker run --name=vp0 \
                     -it \
                     -p 5000:5000 \
                     -p 30303:30303 \
+                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    -e CORE_PEER_ID=vp0 \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
+                    yeasy/hyperledger-peer:noops peer node start
+```
+
+Or use your docker daemon url.
+
+```sh
+$ docker run --name=vp0 \
+                    --restart=unless-stopped \
+                    -it \
+                    -p 5000:5000 \
+                    -p 30303:30303 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -106,7 +123,15 @@ $ docker run --name=vp0 \
 ```
 
 ### PBFT consensus
-PBFT requires at least 4 nodes, so please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
+PBFT requires at least 4 nodes.
+
+```sh
+$ git clone https://github.com/yeasy/docker-compose-files
+$ cd docker-compose-files/hyperledger
+$ docker-compose up
+```
+
+More details, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
 
 After the cluster starts up, enter into the container
 ```sh
