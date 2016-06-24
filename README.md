@@ -23,11 +23,12 @@ The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyper
 FROM yeasy/hyperledger-peer:latest
 ```
 
-## Local Run
-The peer command is already there, add your sub command and flags at the end.
+## Local Run with single node
+The `peer` command is the main command, you can use it as the start part.
 
 E.g., see the supported sub commands with the `help` command.
 ```sh
+$ peer help
 02:10:10.359 [crypto] main -> INFO 001 Log level recognized 'info', set to INFO
 
 
@@ -49,7 +50,7 @@ Use "peer [command] --help" for more information about a command.
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer node start help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer peer node start help
 ```
 
 The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
@@ -167,6 +168,53 @@ $ peer chaincode query -n 5844bc142dcc9e788785e026e22c855957b2c754c912702c58d997
 ```
 
 More examples, please refer to [hyperledger-compose-files](https://github.com/yeasy/docker-compose-files#hyperledger).
+
+
+If you wanna manually start.
+
+For root node:
+
+```sh
+docker run --name=node_vp0 \
+                    -e CORE_PEER_ID=vp0 \
+                    -e CORE_PBFT_GENERAL_N=4 \
+                    --net="host" \
+                    --restart=unless-stopped \
+                    -it --rm \
+                    -p 5500:5000 \
+                    -p 30303:30303 \
+                    -v /var/run/docker.sock:/var/run/docker.sock
+                    -e CORE_LOGGING_LEVEL=debug \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_NETWORKID=dev \
+                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+                    yeasy/hyperledger-peer:pbft peer node start
+```
+
+for non-root node:
+
+```sh
+docker run --name=node_vpX \
+                    -e CORE_PEER_ID=vpX \
+                    -e CORE_PBFT_GENERAL_N=4 \
+                    --net="host" \
+                    --restart=unless-stopped \
+                    --rm -it \
+                    -p 30303:30303 \
+                    --net="hyperledger_cluster_net_pbft" \
+                    -e CORE_LOGGING_LEVEL=debug \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_NETWORKID=dev \
+                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+                    -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:30303 \
+                    yeasy/hyperledger-peer:latest peer node start
+```
+
+
 
 # Which image is based on?
 The image is built based on [hyperledger](https://hub.docker.com/r/yeasy/hyperledger) base image.
