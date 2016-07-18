@@ -1,3 +1,4 @@
+# Deprecated soon, do not use this.
 # Dockerfile for Hyperledger peer image with consensus noops. This follows hyperledger
 # image and copy related consensus config file.
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
