@@ -59,8 +59,8 @@ Your can also mapping the port outside using the `-p` options.
 
 * 7050: REST service listening port (Recommened to open at non-validating node)
 * 7051: Peer service listening port
-* 30304: CLI process use it for callbacks from chain code
-* 31315: Event service on validating node
+* 7052: CLI process use it for callbacks from chain code
+* 7053: Event service on validating node
 
 ## Local Run with chaincode testing
 
