@@ -5,8 +5,8 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 # Supported tags and respective Dockerfile links
 
 * [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/master/Dockerfile): Default to enable pbft as consensus.
-* [`noops` (noops/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/noops/Dockerfile): Use noops as consenus.
-* [`pbft` (pbft/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/pbft/Dockerfile): Use pbft as consensus.
+* [`0.5-dp` (0.5-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/0.5-dp/Dockerfile): Use 0.5-developer-preview branch code.
+* [`0.6-dp` (0.6-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/0.6-dp/Dockerfile): Use 0.6-developer-preview branch code.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
 
@@ -76,8 +76,6 @@ Pull necessary images, notice the default config require a local built `openbloc
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
 $ docker pull yeasy/hyperledger-peer:latest
-$ docker pull yeasy/hyperledger-peer:noops
-$ docker pull yeasy/hyperledger-peer:pbft
 ```
 
 Check the `docker0` bridge ip, normally it should be `172.17.0.1`. This ip will be used as the `CORE_VM_ENDPOINT=http://172.17.0.1:2375`.
@@ -105,7 +103,7 @@ $ docker run --name=vp0 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
-                    yeasy/hyperledger-peer:noops peer node start
+                    yeasy/hyperledger-peer:latest peer node start
 ```
 
 Or use your docker daemon url.
@@ -120,7 +118,7 @@ $ docker run --name=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
-                    yeasy/hyperledger-peer:noops peer node start
+                    yeasy/hyperledger-peer:latest peer node start
 ```
 
 ### PBFT consensus
@@ -190,7 +188,7 @@ docker run --name=node_vp0 \
                     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
                     -e CORE_PBFT_GENERAL_MODE=classic \
                     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    yeasy/hyperledger-peer:pbft peer node start
+                    yeasy/hyperledger-peer:latest peer node start
 ```
 
 for non-root node:
