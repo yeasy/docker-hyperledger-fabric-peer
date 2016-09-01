@@ -57,8 +57,8 @@ The storage will be under `/var/hyperledger/`, which should be mounted from host
 
 Your can also mapping the port outside using the `-p` options. 
 
-* 5000: REST service listening port (Recommened to open at non-validating node)
-* 30303: Peer service listening port
+* 7050: REST service listening port (Recommened to open at non-validating node)
+* 7051: Peer service listening port
 * 30304: CLI process use it for callbacks from chain code
 * 31315: Event service on validating node
 
@@ -99,8 +99,8 @@ Start a validating node.
 $ docker run --name=vp0 \
                     --restart=unless-stopped \
                     -it \
-                    -p 5000:5000 \
-                    -p 30303:30303 \
+                    -p 7050:7050 \
+                    -p 7051:7051 \
                     -v /var/run/docker.sock:/var/run/docker.sock \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -114,8 +114,8 @@ Or use your docker daemon url.
 $ docker run --name=vp0 \
                     --restart=unless-stopped \
                     -it \
-                    -p 5000:5000 \
-                    -p 30303:30303 \
+                    -p 7050:7050 \
+                    -p 7051:7051 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -181,8 +181,8 @@ docker run --name=node_vp0 \
                     --net="host" \
                     --restart=unless-stopped \
                     -it --rm \
-                    -p 5500:5000 \
-                    -p 30303:30303 \
+                    -p 5500:7050 \
+                    -p 7051:7051 \
                     -v /var/run/docker.sock:/var/run/docker.sock
                     -e CORE_LOGGING_LEVEL=debug \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -202,7 +202,7 @@ docker run --name=node_vpX \
                     --net="host" \
                     --restart=unless-stopped \
                     --rm -it \
-                    -p 30303:30303 \
+                    -p 7051:7051 \
                     --net="hyperledger_cluster_net_pbft" \
                     -e CORE_LOGGING_LEVEL=debug \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -210,7 +210,7 @@ docker run --name=node_vpX \
                     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
                     -e CORE_PBFT_GENERAL_MODE=classic \
                     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:30303 \
+                    -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:7051 \
                     yeasy/hyperledger-peer:latest peer node start
 ```
 
