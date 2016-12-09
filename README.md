@@ -1,26 +1,26 @@
-Docker-Hyperledger-Peer
+Hyperledger Fabric Peer
 ===
 Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 
 # Supported tags and respective Dockerfile links
 
-* [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/master/Dockerfile): Default to enable pbft as consensus.
-* [`0.5-dp` (0.5-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/0.5-dp/Dockerfile): Use 0.5-developer-preview branch code.
-* [`0.6-dp` (0.6-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-peer/blob/0.6-dp/Dockerfile): Use 0.6-developer-preview branch code.
+* [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/Dockerfile): Default to enable pbft as consensus.
+* [`0.5-dp` (0.5-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/0.5-dp/Dockerfile): Use 0.5-developer-preview branch code.
+* [`0.6-dp` (0.6-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/0.6-dp/Dockerfile): Use 0.6-developer-preview branch code.
 
-For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-peer).
+For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-fabric-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-fabric-peer).
 
 If you want to quickly deploy a local cluster without any configuration and vagrant, please refer to [Start hyperledger clsuter using compose](https://github.com/yeasy/docker-compose-files#hyperledger).
 
-# What is docker-hyperledger-peer?
+# What is docker-hyperledger-fabric-peer?
 Docker image with hyperledger fabric peer deployed. 
 
 # How to use this image?
-The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger-peer/](https://registry.hub.docker.com/u/yeasy/hyperledger-peer/).
+The docker image is auto built at [https://registry.hub.docker.com/u/yeasy/hyperledger-fabric-peer/](https://registry.hub.docker.com/u/yeasy/hyperledger-fabric-peer/).
 
 ## In Dockerfile
 ```sh
-FROM yeasy/hyperledger-peer:latest
+FROM yeasy/hyperledger-fabric-peer:latest
 ```
 
 ## Local Run with single node
@@ -50,7 +50,7 @@ Use "peer [command] --help" for more information about a command.
 
 Hyperledger relies on a `core.yaml` file, you can mount your local one by
 ```sh
-$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-peer peer node start help
+$ docker run -v your_local_core.yaml:/go/src/github.com/hyperledger/fabric/peer/core.yaml -d yeasy/hyperledger-fabric-peer peer node start help
 ```
 
 The storage will be under `/var/hyperledger/`, which should be mounted from host for persistent requirement.
@@ -75,7 +75,7 @@ Pull necessary images, notice the default config require a local built `openbloc
 ```sh
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
-$ docker pull yeasy/hyperledger-peer:latest
+$ docker pull yeasy/hyperledger-fabric-peer:latest
 ```
 
 Check the `docker0` bridge ip, normally it should be `172.17.0.1`. This ip will be used as the `CORE_VM_ENDPOINT=http://172.17.0.1:2375`.
@@ -103,7 +103,7 @@ $ docker run --name=vp0 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
-                    yeasy/hyperledger-peer:latest peer node start
+                    yeasy/hyperledger-fabric-peer:latest peer node start
 ```
 
 Or use your docker daemon url.
@@ -118,7 +118,7 @@ $ docker run --name=vp0 \
                     -e CORE_VM_ENDPOINT=http://172.17.0.1:2375 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
-                    yeasy/hyperledger-peer:latest peer node start
+                    yeasy/hyperledger-fabric-peer:latest peer node start
 ```
 
 ### PBFT consensus
@@ -188,7 +188,7 @@ docker run --name=node_vp0 \
                     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
                     -e CORE_PBFT_GENERAL_MODE=classic \
                     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    yeasy/hyperledger-peer:latest peer node start
+                    yeasy/hyperledger-fabric-peer:latest peer node start
 ```
 
 for non-root node:
@@ -209,13 +209,11 @@ docker run --name=node_vpX \
                     -e CORE_PBFT_GENERAL_MODE=classic \
                     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
                     -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:7051 \
-                    yeasy/hyperledger-peer:latest peer node start
+                    yeasy/hyperledger-fabric-peer:latest peer node start
 ```
 
-
-
 # Which image is based on?
-The image is built based on [hyperledger](https://hub.docker.com/r/yeasy/hyperledger) base image.
+The image is built based on [Hyperledger Fabric Base](https://hub.docker.com/r/yeasy/hyperledger-fabric-base) image.
 
 # What has been changed?
 ## install dependencies
@@ -224,12 +222,12 @@ Install required  libsnappy-dev, zlib1g-dev, libbz2-dev.
 ## install rocksdb
 Install required  rocksdb 4.1.
 
-## install hyperledger
-Install hyperledger and build the peer 
+## install hyperledger fabric peer
+Install hyperledger fabric and build the peer 
 
 # Supported Docker versions
 
-This image is officially supported on Docker version 1.7.0.
+This image is officially supported on Docker version 1.7.0+.
 
 Support for older versions (down to 1.0) is provided on a best-effort basis.
 
@@ -238,10 +236,10 @@ Support for older versions (down to 1.0) is provided on a best-effort basis.
 
 # User Feedback
 ## Documentation
-Be sure to familiarize yourself with the [repository's `README.md`](https://github.com/yeasy/docker-hyperledger-peer/blob/master/README.md) file before attempting a pull request.
+Be sure to familiarize yourself with the [repository's `README.md`](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/README.md) file before attempting a pull request.
 
 ## Issues
-If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/yeasy/docker-hyperledger-peer/issues).
+If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/yeasy/docker-hyperledger-fabric-peer/issues).
 
 You can also reach many of the official image maintainers via the email.
 
@@ -249,4 +247,4 @@ You can also reach many of the official image maintainers via the email.
 
 You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
 
-Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/yeasy/docker-hyperledger-peer/issues), especially for more ambitious contributions. This gives other contributors a chance to point you in the right direction, give you feedback on your design, and help you find out if someone else is working on the same thing.
+Before you start to code, we recommend discussing your plans through a [GitHub issue](https://github.com/yeasy/docker-hyperledger-fabric-peer/issues), especially for more ambitious contributions. This gives other contributors a chance to point you in the right direction, give you feedback on your design, and help you find out if someone else is working on the same thing.
