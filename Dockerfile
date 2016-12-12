@@ -5,10 +5,15 @@
 FROM yeasy/hyperledger-fabric-base:latest
 MAINTAINER Baohua Yang
 
-# install hyperledger peer
+# install hyperledger peer and orderer
 RUN cd $GOPATH/src/github.com/hyperledger/fabric/peer \
          && CGO_CFLAGS=" " CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy" go install \
          && cp $GOPATH/src/github.com/hyperledger/fabric/peer/core.yaml $GOPATH/bin \
-         && go clean
+         && go clean \
+# build orderer
+        && cd $GOPATH/src/github.com/hyperledger/fabric/order \
+        &&  go install \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/order/orderer.yaml $GOPATH/bin \
+        && go clean
 
 CMD ["peer","node","start"]
