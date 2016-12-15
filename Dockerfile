@@ -11,9 +11,9 @@ RUN cd $GOPATH/src/github.com/hyperledger/fabric/peer \
          && cp $GOPATH/src/github.com/hyperledger/fabric/peer/core.yaml $GOPATH/bin \
          && go clean \
 # build orderer
-        && cd $GOPATH/src/github.com/hyperledger/fabric/order \
+        && cd $GOPATH/src/github.com/hyperledger/fabric/orderer \
         && go install \
-        && cp $GOPATH/src/github.com/hyperledger/fabric/order/orderer.yaml $GOPATH/bin \
+        && cp $GOPATH/src/github.com/hyperledger/fabric/orderer/orderer.yaml $GOPATH/bin \
         && go clean
 
 CMD ["peer","node","start"]
