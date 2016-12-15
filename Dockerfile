@@ -12,7 +12,7 @@ RUN cd $GOPATH/src/github.com/hyperledger/fabric/peer \
          && go clean \
 # build orderer
         && cd $GOPATH/src/github.com/hyperledger/fabric/order \
-        &&  go install \
+        && go install \
         && cp $GOPATH/src/github.com/hyperledger/fabric/order/orderer.yaml $GOPATH/bin \
         && go clean
 
