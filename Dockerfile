@@ -21,6 +21,6 @@ RUN cd $FABRIC_HOME/peer \
     && mkdir -p $PEER_CFG_PATH/msp/sampleconfig \
     && cp -r $FABRIC_HOME/msp/sampleconfig/* $PEER_CFG_PATH/msp/sampleconfig \
     && mkdir -p $PEER_CFG_PATH/common/configtx/tool \
-    && cp $FABRIC_HOME/common/configtx/tool/genesis.yaml $PEER_CFG_PATH/common/configtx/tool/
+    && cp $FABRIC_HOME/common/configtx/tool/genesis.yaml $PEER_CFG_PATH/
 
 CMD ["peer","node","start"]
