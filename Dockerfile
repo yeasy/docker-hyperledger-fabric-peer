@@ -21,6 +21,9 @@ RUN cd $FABRIC_HOME/peer \
     && mkdir -p $PEER_CFG_PATH/msp/sampleconfig \
     && cp -r $FABRIC_HOME/msp/sampleconfig/* $PEER_CFG_PATH/msp/sampleconfig \
     && mkdir -p $PEER_CFG_PATH/common/configtx/tool \
-    && cp $FABRIC_HOME/common/configtx/tool/genesis.yaml $PEER_CFG_PATH/
+    && cp $FABRIC_HOME/common/configtx/tool/configtx.yaml $PEER_CFG_PATH/
 
+# This will start with joining the default chain "testchainid"
+# Use `peer node start --peer-defaultchain=false` will join no channel by default. 
+# Then need to manually create a chain with `peer channel create -c test_chain`, then join with `peer channel join -b test_chain.block`.
 CMD ["peer","node","start"]
