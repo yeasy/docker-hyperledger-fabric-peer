@@ -10,6 +10,9 @@ MAINTAINER Baohua Yang <yeasy.github.com>
 ENV PEER_CFG_PATH /etc/hyperledger/fabric
 ENV CORE_PEER_MSPCONFIGPATH $PEER_CFG_PATH/msp/sampleconfig
 
+# ignore handshake, since not using mutual TLS
+ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
+
 RUN mkdir -p $PEER_CFG_PATH
 
 # install fabric peer and configs
