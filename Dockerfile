@@ -17,7 +17,7 @@ RUN mkdir -p $PEER_CFG_PATH
 
 # install fabric peer and configs
 RUN cd $FABRIC_HOME/peer \
-    && CGO_CFLAGS=" " go install -ldflags "-X github.com/hyperledger/fabric/common/metadata.Version=${PROJECT_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseVersion=${BASE_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseDockerLabel=org.hyperledger.fabric" \
+    && CGO_CFLAGS=" " go install -ldflags "-X github.com/hyperledger/fabric/common/metadata.Version=${PROJECT_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseVersion=${BASE_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseDockerLabel=org.hyperledger.fabric -linkmode external -extldflags '-static -lpthread'" \
     && go clean \
     && cp $FABRIC_HOME/peer/core.yaml $PEER_CFG_PATH \
     && mkdir -p $PEER_CFG_PATH/msp/sampleconfig \
@@ -29,3 +29,7 @@ RUN cd $FABRIC_HOME/peer \
 # Use `peer node start --peer-defaultchain=false` will join no channel by default. 
 # Then need to manually create a chain with `peer channel create -c test_chain`, then join with `peer channel join -b test_chain.block`.
 CMD ["peer","node","start"]
+
+
+LABEL org.hyperledger.fabric.version=${PROJECT_VERSION} \
+      org.hyperledger.fabric.base.version=${BASE_VERSION}
