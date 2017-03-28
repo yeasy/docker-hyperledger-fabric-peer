@@ -29,7 +29,3 @@ RUN cd $FABRIC_HOME/peer \
 # Use `peer node start --peer-defaultchain=false` will join no channel by default. 
 # Then need to manually create a chain with `peer channel create -c test_chain`, then join with `peer channel join -b test_chain.block`.
 CMD ["peer","node","start"]
-
-
-LABEL org.hyperledger.fabric.version=${PROJECT_VERSION} \
-      org.hyperledger.fabric.base.version=${BASE_VERSION}
