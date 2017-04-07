@@ -17,7 +17,12 @@ RUN mkdir -p $PEER_CFG_PATH
 
 # install fabric peer and configs
 RUN cd $FABRIC_HOME/peer \
-    && CGO_CFLAGS=" " go install -ldflags "-X github.com/hyperledger/fabric/common/metadata.Version=${PROJECT_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseVersion=${BASE_VERSION} -X github.com/hyperledger/fabric/common/metadata.BaseDockerLabel=org.hyperledger.fabric -linkmode external -extldflags '-static -lpthread'" \
+    && CGO_CFLAGS=" " go install -ldflags "-X github.com/hyperledger/fabric/common/metadata.Version=${PROJECT_VERSION} \
+    -X github.com/hyperledger/fabric/common/metadata.BaseVersion=${BASE_VERSION} \
+    -X github.com/hyperledger/fabric/common/metadata.DockerNamespace=${DOCKER_NS} \
+    -X github.com/hyperledger/fabric/common/metadata.BaseDockerNamespace=${BASE_DOCKER_NS} \
+    -X github.com/hyperledger/fabric/common/metadata.BaseDockerLabel=org.hyperledger.fabric \
+    -linkmode external -extldflags '-static -lpthread'" \
     && go clean \
     && cp $FABRIC_HOME/peer/core.yaml $PEER_CFG_PATH \
     && mkdir -p $PEER_CFG_PATH/msp/sampleconfig \
