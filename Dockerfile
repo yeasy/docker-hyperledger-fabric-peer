@@ -7,13 +7,13 @@ MAINTAINER Baohua Yang <yeasy.github.com>
 
 #EXPOSE 7050
 
-ENV PEER_CFG_PATH /etc/hyperledger/fabric
-ENV CORE_PEER_MSPCONFIGPATH $PEER_CFG_PATH/msp/sampleconfig
+ENV FABRIC_CFG_PATH /etc/hyperledger/fabric
+ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp/sampleconfig
 
 # ignore handshake, since not using mutual TLS
 ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
 
-RUN mkdir -p $PEER_CFG_PATH
+RUN mkdir -p $FABRIC_CFG_PATH
 
 # install fabric peer and configs
 RUN cd $FABRIC_HOME/peer \
@@ -25,11 +25,11 @@ RUN cd $FABRIC_HOME/peer \
     -X github.com/hyperledger/fabric/common/metadata.BaseDockerNamespace=${BASE_DOCKER_NS} \
     -linkmode external -extldflags '-static -lpthread'" \
     && go clean \
-    && cp $FABRIC_HOME/peer/core.yaml $PEER_CFG_PATH \
-    && mkdir -p $PEER_CFG_PATH/msp/sampleconfig \
-    && cp -r $FABRIC_HOME/msp/sampleconfig/* $PEER_CFG_PATH/msp/sampleconfig \
-    && mkdir -p $PEER_CFG_PATH/common/configtx/tool \
-    && cp $FABRIC_HOME/common/configtx/tool/configtx.yaml $PEER_CFG_PATH/
+    && cp $FABRIC_HOME/peer/core.yaml $FABRIC_CFG_PATH \
+    && mkdir -p $FABRIC_CFG_PATH/msp/sampleconfig \
+    && cp -r $FABRIC_HOME/msp/sampleconfig/* $FABRIC_CFG_PATH/msp/sampleconfig \
+    && mkdir -p $FABRIC_CFG_PATH/common/configtx/tool \
+    && cp $FABRIC_HOME/common/configtx/tool/configtx.yaml $FABRIC_CFG_PATH/
 
 # This will start with joining the default chain "testchainid"
 # Use `peer node start --peer-defaultchain=false` will join no channel by default. 
