@@ -7,7 +7,7 @@ LABEL maintainer "Baohua Yang <yeasy.github.com>"
 
 EXPOSE 7051
 
-# ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp/sampleconfig
+# ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp
 
 # ignore handshake, since not using mutual TLS
 ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
