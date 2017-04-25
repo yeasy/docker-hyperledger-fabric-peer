@@ -18,7 +18,7 @@ ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
 
 # install fabric peer and copy sampleconfigs
 RUN cd $FABRIC_HOME/peer \
-    && CGO_CFLAGS=" " go install -ldflags "$LDFLAGS -linkmode external -extldflags '-static -lpthread'" \
+    && CGO_CFLAGS=" " go install -ldflags "$LD_FLAGS -linkmode external -extldflags '-static -lpthread'" \
     && go clean
 
 # This will start with joining the default chain "testchainid"
