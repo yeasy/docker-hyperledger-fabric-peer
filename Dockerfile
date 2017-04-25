@@ -18,17 +18,8 @@ ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
 
 # install fabric peer and copy sampleconfigs
 RUN cd $FABRIC_HOME/peer \
-    && CGO_CFLAGS=" " go install -ldflags \
-    "-X github.com/hyperledger/fabric/common/metadata.Version=${PROJECT_VERSION} \
-    -X github.com/hyperledger/fabric/common/metadata.BaseVersion=${BASE_VERSION} \
-    -X github.com/hyperledger/fabric/common/metadata.BaseDockerLabel=org.hyperledger.fabric \
-    -X github.com/hyperledger/fabric/common/metadata.DockerNamespace=${DOCKER_NS} \
-    -X github.com/hyperledger/fabric/common/metadata.BaseDockerNamespace=${BASE_DOCKER_NS} \
-    -linkmode external -extldflags '-static -lpthread'" \
-    && go clean \
-    && cp -r $FABRIC_HOME/sampleconfig $FABRIC_CFG_PATH/
-#&& mkdir -p $FABRIC_CFG_PATH/common/configtx/tool \
-#&& cp $FABRIC_HOME/common/configtx/tool/configtx.yaml $FABRIC_CFG_PATH/
+    && CGO_CFLAGS=" " go install -ldflags "$LDFLAGS -linkmode external -extldflags '-static -lpthread'" \
+    && go clean
 
 # This will start with joining the default chain "testchainid"
 # Use `peer node start --peer-defaultchain=false` will join no channel by default. 
