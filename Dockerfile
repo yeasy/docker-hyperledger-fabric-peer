@@ -17,7 +17,7 @@ ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
 # RUN mkdir -p $FABRIC_CFG_PATH
 
 # install fabric peer and copy sampleconfigs
-RUN cd $FABRIC_HOME/peer \
+RUN cd $FABRIC_ROOT/peer \
     && CGO_CFLAGS=" " go install -ldflags "$LD_FLAGS -linkmode external -extldflags '-static -lpthread'" \
     && go clean
 
