@@ -9,13 +9,6 @@ EXPOSE 7051
 
 # ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp
 
-# ignore handshake, since not using mutual TLS
-ENV CORE_PEER_GOSSIP_SKIPHANDSHAKE true
-
-# Done in base
-# ENV FABRIC_CFG_PATH /etc/hyperledger/fabric
-# RUN mkdir -p $FABRIC_CFG_PATH
-
 # install fabric peer and copy sampleconfigs
 RUN cd $FABRIC_ROOT/peer \
     && CGO_CFLAGS=" " go install -ldflags "$LD_FLAGS -linkmode external -extldflags '-static -lpthread'" \
