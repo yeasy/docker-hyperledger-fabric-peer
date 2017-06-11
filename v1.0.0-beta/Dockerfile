@@ -2,7 +2,7 @@
 # image and add default start cmd.
 # Data is stored under /var/hyperledger/db and /var/hyperledger/production
 
-FROM yeasy/hyperledger-fabric-base:latest
+FROM yeasy/hyperledger-fabric-base:v1.0.0-beta
 LABEL maintainer "Baohua Yang <yeasy.github.com>"
 
 EXPOSE 7051
