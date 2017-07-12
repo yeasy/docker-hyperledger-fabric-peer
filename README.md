@@ -5,12 +5,12 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 # Supported tags and respective Dockerfile links
 
 * [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/Dockerfile): Track latest code on master branch.
-* [`v1.0.0` (v1.0.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master v1.0.0/Dockerfile): v1.0.0 release.
-* [`v1.0.0-rc1` (v1.0.0-rc1/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master v1.0.0-rc1/Dockerfile): v1.0.0-rc1 release.
-* [`v1.0.0-beta` (v1.0.0-beta/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master v1.0.0-beta/Dockerfile): v1.0.0-beta release.
-* [`v1.0.0-alpha2` (v1.0.0-alpha2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master v1.0.0-alpha2/Dockerfile): v1.0.0-alpha2 release.
-* [`v1.0.0-alpha` (v1.0.0-alpha/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0-alpha/Dockerfile): v1.0.0-alpha release.
-* [`0.6-dp` (0.6-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/0.6-dp/Dockerfile): Use 0.6-developer-preview release.
+* [`1.0.0` (v1.0.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0/Dockerfile): 1.0.0 release.
+* [`1.0.0-rc1` (v1.0.0-rc1/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0-rc1/Dockerfile): 1.0.0-rc1 release.
+* [`1.0.0-beta` (v1.0.0-beta/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0-beta/Dockerfile): 1.0.0-beta release.
+* [`1.0.0-alpha2` (v1.0.0-alpha2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0-alpha2/Dockerfile): 1.0.0-alpha2 release.
+* [`1.0.0-alpha` (v1.0.0-alpha/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.0-alpha/Dockerfile): 1.0.0-alpha release.
+* [`0.6-dp` (0.6-dp/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/0.6-dp/Dockerfile): Use 0.6-developer-preview release.
 
 For more information about this image and its history, please see the relevant manifest file in the [`yeasy/docker-hyperledger-fabric-peer` GitHub repo](https://github.com/yeasy/docker-hyperledger-fabric-peer).
 
