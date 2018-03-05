@@ -5,6 +5,7 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 # Supported tags and respective Dockerfile links
 
 * [`latest` (latest/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/Dockerfile): Track latest code on master branch.
+* [`1.1.0-rc1` (v1.1.0-rc1/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.1.0-rc1/Dockerfile): 1.1.0-rc1 release.
 * [`1.0.6` (v1.0.6/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.0.6/Dockerfile): 1.0.6 release.
 * [`1.1.0-alpha` (v1.1.0-alpha/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.1.0-alpha/Dockerfile): 1.1.0-alpha release.
 * [`1.1.0-preview` (v1.1.0-preview/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.1.0-preview/Dockerfile): 1.1.0-preview release.
