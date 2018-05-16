@@ -11,7 +11,7 @@ EXPOSE 7051
 
 # install fabric peer and copy sampleconfigs
 RUN cd $FABRIC_ROOT/peer \
-    && go install -ldflags "$LD_FLAGS" \
+    && go install -tags "experimental" -ldflags "$LD_FLAGS" \
     && go clean
 
 # This will start with joining the default chain "testchainid"
