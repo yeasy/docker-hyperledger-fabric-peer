@@ -7,7 +7,8 @@
 FROM yeasy/hyperledger-fabric-base:latest
 LABEL maintainer "Baohua Yang <yeasy.github.io>"
 
-EXPOSE 7051  # Peer
+# Peer
+EXPOSE 7051
 
 # ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp
 
