@@ -13,7 +13,7 @@ EXPOSE 7051
 # ENV CORE_PEER_MSPCONFIGPATH $FABRIC_CFG_PATH/msp
 
 # Install fabric peer
-RUN CGO_CFLAGS=" " go install -tags "" -ldflags "$LD_FLAGS" github.com/hyperledger/fabric/cmd/orderer \
+RUN CGO_CFLAGS=" " go install -tags "" -ldflags "$LD_FLAGS" github.com/hyperledger/fabric/cmd/peer \
         && go clean
 
 # This will start with joining the default chain "testchainid"
