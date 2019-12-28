@@ -16,7 +16,5 @@ EXPOSE 7051
 RUN CGO_CFLAGS=" " go install -tags "" -ldflags "$LD_FLAGS" github.com/hyperledger/fabric/cmd/peer \
         && go clean
 
-# This will start with joining the default chain "testchainid"
-# Use `peer node start --peer-defaultchain=false` will join no channel by default. 
-# Then need to manually create a chain with `peer channel create -c test_chain`, then join with `peer channel join -b test_chain.block`.
+# First need to manually create a chain with `peer channel create -c test_chain`, then join with `peer channel join -b test_chain.block`.
 CMD ["peer","node","start"]
