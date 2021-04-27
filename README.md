@@ -8,11 +8,15 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 * [`release-v2.3` (release-v2.3/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/release-v2.3/Dockerfile): 2.3 release.
 * [`release-v2.2` (release-v2.2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/release-v2.2/Dockerfile): 2.2 LTS release.
 * [`release-v2.0` (release-v2.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/release-v2.0/Dockerfile): 2.0 release.
+* [`2.3.2` (v2.3.2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.3.2/Dockerfile): 2.3.2 release.
 * [`2.3.0` (v2.3.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.3.0/Dockerfile): 2.3.0 release.
+* [`2.2.3` (v2.2.3/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.3/Dockerfile): 2.2.3 release.
 * [`2.2.0` (v2.2.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.0/Dockerfile): 2.2.0 release.
 * [`2.1.0` (v2.1.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.1.0/Dockerfile): 2.1.0 release.
 * [`2.0.0` (v2.0.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.0.0/Dockerfile): 2.0.0 release.
 * [`release-v1.4` (release-v1.4/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/release-v1.4/Dockerfile): 1.4 LTS release.
+* [`1.4.12` (v1.4.12/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.4.12/Dockerfile): 1.4.12 release.
+* [`1.4.10` (v1.4.10/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.4.10/Dockerfile): 1.4.10 release.
 * [`1.4.9` (v1.4.9/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.4.9/Dockerfile): 1.4.9 release.
 * [`1.4.8` (v1.4.8/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.4.8/Dockerfile): 1.4.8 release.
 * [`1.4.7` (v1.4.7/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v1.4.7/Dockerfile): 1.4.7 release.
