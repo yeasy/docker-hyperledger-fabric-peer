@@ -16,6 +16,7 @@ Docker images for [Hyperledger](https://www.hyperledger.org) fabric peer.
 * [`2.3.2` (v2.3.2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.3.2/Dockerfile): 2.3.2 release.
 * [`2.3.0` (v2.3.0/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.3.0/Dockerfile): 2.3.0 release.
 * [`release-v2.2` (release-v2.2/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/release-v2.2/Dockerfile): 2.2 LTS release.
+* [`2.2.10` (v2.2.10/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.10/Dockerfile): 2.2.10 release.
 * [`2.2.9` (v2.2.9/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.9/Dockerfile): 2.2.9 release.
 * [`2.2.8` (v2.2.8/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.8/Dockerfile): 2.2.8 release.
 * [`2.2.4` (v2.2.4/Dockerfile)](https://github.com/yeasy/docker-hyperledger-fabric-peer/blob/master/v2.2.4/Dockerfile): 2.2.4 release.
